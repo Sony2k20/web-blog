@@ -69,14 +69,14 @@ export class AppComponent implements OnInit {
     this.authServ.login()
 
     setTimeout(() => {
-      this.snackbarService.openSnackBar("Login erfolgreich", "");
+      this.snackbarService.openSnackBar("Login erfolgreich", "", "green-font");
     }, 1500);
     this.closeSideNav()
   }
 
   logout() {
     this.authServ.logout()
-    this.snackbarService.openSnackBar("Logout erfolgreich", "");
+    this.snackbarService.openSnackBar("Logout erfolgreich", "", "green-font");
     this.closeSideNav()
   }
 
@@ -94,7 +94,7 @@ export class AppComponent implements OnInit {
       if (result.deleteValue && this.post?.id){
          this.postService.deleteNote(this.post?.id);
          this.closeSideNav()
-         this.snackbarService.openSnackBar("Post wurde gelöscht", "");
+         this.snackbarService.openSnackBar("Post wurde gelöscht", "", "green-font");
     }});
   }
 

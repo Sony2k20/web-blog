@@ -65,8 +65,11 @@ export class PostDashboardComponent implements OnInit {
   }
 
   async createPostBody() {
-    if(await this.postService.countPostsbyType("title", this.formGroup?.get('title')?.value) === 1)  {
-      return this.snackbarService.openSnackBar("Titel ist bereits vorhanden", "")
+    if(
+      await this.postService.countPostsbyType("title", this.formGroup?.get('title')?.value) === 1
+    && this.data.changeType !== "edit"
+    )  {
+      return this.snackbarService.openSnackBar("Titel ist bereits vorhanden", "", "red-font")
     }
     this.createNewLine();
     this.createID()
@@ -84,7 +87,7 @@ export class PostDashboardComponent implements OnInit {
       this.postService.setPost(post, id)
       this.replaceBR()
       if(this.data.changeType === "edit") {
-        this.snackbarService.openSnackBar("Änderungen erfolgreich", "")
+        this.snackbarService.openSnackBar("Änderungen erfolgreich", "", "green-font")
       } else {
         const routerLink = "/blog/" + this.formGroup?.get('id')?.value
         this.dialogRef.close({routerLink: routerLink})
@@ -115,7 +118,7 @@ export class PostDashboardComponent implements OnInit {
   }
 
   testa(){
-    this.snackbarService.openSnackBar("Unzureichende Berechtigung", "")
+    this.snackbarService.openSnackBar("Unzureichende Berechtigung", "", "red-font")
   }
 
   onSelectFile(event: any) {
@@ -127,9 +130,9 @@ export class PostDashboardComponent implements OnInit {
 
     uploadTask.percentageChanges().subscribe({
       next: res => this.progressbarValue = res,
-      error: () => this.snackbarService.openSnackBar("Unzureichende Berechtigung", ""),
+      error: () => this.snackbarService.openSnackBar("Unzureichende Berechtigung", "", "red-font"),
       complete: () => {
-        this.snackbarService.openSnackBar("Bild erfolgreich hochgeladen", "")
+        this.snackbarService.openSnackBar("Bild erfolgreich hochgeladen", "", "green-font")
       },
     })
 
