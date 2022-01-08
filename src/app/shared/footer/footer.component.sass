@@ -1,0 +1,52 @@
+@import "src/assets/custom-properties.sass"
+@import "src/assets/icon-animate.sass"
+
+
+
+.footer 
+  background: $text-gray
+  color: $white
+  text-align: center
+  padding: 90px 0
+  font-size: 1.25rem
+  position: relative
+  align-items: center
+  display: grid
+  grid-template-columns: 15% 70% 15%
+  
+
+
+.footer a 
+  color: inherit
+  text-decoration: none
+
+
+.footer_link:hover
+  opacity: 0.7
+  
+
+.move-up 
+  text-align: center
+  vertical-align: middle
+
+//--------------Icon--------------//
+
+.icon-enter
+  &::after
+    box-shadow: inset 0 0 0 1px $white
+  &::before
+    box-shadow: inset 0 0 0 $icon-size $white
+    color: $text-gray
+    opacity: 90%
+  &:hover i
+    color: $text-gray  
+  &:hover .icon-content
+    color: $text-gray !important
+
+.icon-content
+    color: $white !important
+
+.social-items a
+  margin: 15px 12px
+
+

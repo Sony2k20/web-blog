@@ -1,0 +1,31 @@
+<div id="top" class="navbar">
+
+  <div class="nav-left-part">
+    <a routerLink="/blog">nerd-heaven.net</a>
+  </div>
+
+  <div class="nav-middle-part">
+    <a mat-flat-button class="nav-item btn-nav  btn-one" routerLink="/blog" fragment="slider">Home</a>
+    <a mat-flat-button class="nav-item btn-nav  btn-one" (click)="goToSlider()">Blog</a>
+    <a mat-flat-button class="nav-item btn-nav  btn-one" routerLink="/">Kontakt</a>
+    <a mat-flat-button class="nav-item btn-nav  btn-one" routerLink="/">Über mich</a>
+  </div>
+
+  <div class="nav-right-part">
+
+    <div *ngIf="authServ.auth.user | async as user; else showIcon">
+        <div (click)="clickMenu()" class="icon-box">
+          <div class="icon icon-enter icon-profile icon-no-border"><img src="{{user.photoURL}}">
+          </div>
+        </div>
+    </div>
+<ng-template #showIcon>
+  <div (click)="clickMenu()" class="icon icon-enter"><i class="fa fa-user"></i></div>
+</ng-template>
+
+
+
+    
+  </div>
+
+</div>

@@ -1,0 +1,23 @@
+<div *ngIf="post">
+  <div id="site-title">
+</div>
+<div class="text-title">
+    <h1>{{ post.title }}</h1>
+  <div (click)="goToContent()" class="box-explore">
+    <div class="btn btn-one btn-explore">
+      <span  mat-flat-button>Read Article</span>
+    </div>
+  </div>
+</div>
+
+<div id="content">
+  <div>
+    <h1>{{ post.longTitle }}</h1>
+    <p [innerHTML]="post.content"></p>
+    <p>{{ post.published.toDate()  | date: 'mediumDate' }}</p>
+  </div>
+  <div>Sidebar</div>
+</div>
+
+</div>
+

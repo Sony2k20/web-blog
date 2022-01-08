@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "weg-blog": {
+      "hosting": {
+        "web-blog": [
+          "weg-blog"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "weg-blog"
+  }
+}

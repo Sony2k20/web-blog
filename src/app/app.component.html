@@ -1,0 +1,96 @@
+<mat-drawer-container class="example-container" hasBackdrop="true">
+  <mat-drawer #sidenav position="end" mode="push">
+
+
+    <div *ngIf="authServ.auth.user | async as user; else showLogin">
+      <mat-list>
+        <mat-list-item>
+          Hallo {{user.displayName}}</mat-list-item>
+      </mat-list>
+
+      <mat-nav-list>
+        <mat-divider></mat-divider>
+        <div [matTooltip]="this.env.adminUsers.indexOf(user!.uid) !== -1? '' : 'Sie haben keine Berechtigung'" *ngIf="this.env.adminUsers.indexOf(user!.uid) !== -1">
+          <mat-list-item (click)="openChangeDialog('add')">
+            <div class="icon-box">
+              <div class="icon icon-enter"><i class="fas fa-file-medical"></i></div>
+            </div>
+            Post verfassen
+          </mat-list-item>
+          <div  [matTooltip]="!valueIfPost ? 'Navigation zu Blogeintrag erforderlich' : ''">
+          <mat-list-item 
+          (click)="openChangeDialog('edit')"
+          [disabled]="this.env.adminUsers.indexOf(user!.uid) === -1 || !valueIfPost">
+            <div class="icon-box">
+              <div class="icon icon-enter"><i class="far fa-edit"></i></div>
+            </div>
+            Post editieren
+          </mat-list-item>
+          <mat-list-item 
+          [disabled]="this.env.adminUsers.indexOf(user!.uid) === -1 || !valueIfPost"
+            (click)=openDeleteDialog()>
+            <div class="icon-box">
+              <div class="icon icon-enter"><i class="fas fa-trash"></i></div>
+            </div>
+            Post löschen
+          </mat-list-item>
+        </div>
+          <mat-divider></mat-divider>
+        </div>
+        <mat-list-item (click)="logout()">
+          <div class="icon-box">
+            <div class="icon icon-enter"><i class="fas fa-sign-out-alt"></i></div>
+          </div>
+          Logout
+        </mat-list-item>
+      </mat-nav-list>
+    </div>
+
+    <ng-template #showLogin>
+      <mat-list>
+        <mat-list-item>
+          Hallo User
+        </mat-list-item>
+      </mat-list>
+      <mat-nav-list>
+        <mat-divider></mat-divider>
+        <div matTooltip="Login erforderlich">
+          <mat-list-item disabled="true">
+            <div class="icon-box">
+              <div class="icon icon-enter"><i class="fas fa-file-medical"></i></div>
+            </div>
+            Post verfassen
+          </mat-list-item>
+          <mat-list-item disabled="true">
+            <div class="icon-box">
+              <div class="icon icon-enter"><i class="far fa-edit"></i></div>
+            </div>
+            Post editieren
+          </mat-list-item>
+          <mat-list-item disabled="true">
+            <div class="icon-box">
+              <div class="icon icon-enter"><i class="fas fa-trash"></i></div>
+            </div>
+            Post löschen
+          </mat-list-item>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-list-item (click)="login()">
+          <div class="icon-box">
+            <div class="icon icon-enter"><i class="fas fa-sign-in-alt"></i></div>
+          </div>
+          Login
+        </mat-list-item>
+      </mat-nav-list>
+    </ng-template>
+
+  </mat-drawer>
+  <mat-drawer-content>
+
+
+    <app-navbar></app-navbar>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+
+  </mat-drawer-content>
+</mat-drawer-container>

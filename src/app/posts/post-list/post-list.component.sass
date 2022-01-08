@@ -1,0 +1,282 @@
+@import "~swiper/css"
+@import "~swiper/css/pagination"
+@import "~swiper/css/navigation"
+@import "~swiper/css/autoplay"
+@import "~swiper/css/effect-fade"
+@import "~swiper/css/effect-coverflow"
+@import '~ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css'
+@import '~ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css'
+@import "src/assets/custom-properties.sass"
+
+//----------------Blog----------------//
+
+$image-width: 100%
+
+
+#site-content
+  padding: 50px 50px
+  display: grid
+  grid-template-columns: 70% 30%
+  max-width: 1400px
+  margin-left: auto
+  margin-right: auto
+
+.post-content
+  width: 95%
+
+.post-content  .blog-image
+  overflow: hidden
+  aspect-ratio: 16 / 9
+
+.post-content  .blog-image img
+  width: 100%
+  object-fit: cover
+
+
+.post-info
+  padding: 1rem
+  position: absolute
+  bottom: -1rem
+  left: 50%
+  color: $text-gray
+  background: $sky
+  transform: translate(-50%)
+  border-radius: 3rem
+
+.post-info span
+  margin: 0.5rem
+  font-family: Abel
+  color: $text-gray !important
+
+.post-image
+  position: relative
+  text-align: center
+  width: 100%
+  transition: .4s ease-in-out
+  -webkit-box-shadow: 0 15px 10px #777
+  -moz-box-shadow: 0 15px 10px #777
+  box-shadow: 0 15px 10px #777
+
+.post-image img
+  transition: .6s ease-in-out
+  transform: scale(1.045)
+
+.post-image:hover img
+  transform: scale(1.19)
+  transition: .6s ease-in-out
+  cursor: pointer
+
+.post-textbox
+  padding-top: 2rem
+
+.post-title
+  margin-bottom: 0.6rem
+
+.post-title:hover
+  cursor: pointer
+
+.post-title a
+  font-family: Anton
+  color: $text-gray
+  font-size: 1.5rem
+
+.post-text
+  display: -webkit-box
+  -webkit-line-clamp: 4
+  -webkit-box-orient: vertical
+  overflow: hidden
+  text-overflow: ellipsis
+  text-align: justify
+  text-align-last: none
+
+.post-text p
+  font-family: Abel
+  color: $text-gray
+  font-size: 1.2em !important
+  line-height: 1.4em
+
+.box-read-more
+  margin-top: 0.3rem
+  padding-bottom: 1rem
+
+.btn-read-more
+  width: 100px
+  font-family: Abel
+  font-size: 1.0rem
+  color: $text-light
+  height: 30px
+  justify-content: center
+  text-align: center
+  line-height: 30px
+
+//----------------Sidebar----------------//
+
+.side-box
+  padding-bottom: 50px
+
+.searchbar
+  margin-bottom: 10px
+  width: 100% !important
+  display: grid
+  grid-template-columns: 10% 75%
+
+.mat-form-field-infix
+  border-top: 0px !important
+
+.sidebar h2
+  font-family: Anton
+  font-size: 1.5rem !important
+
+ul
+  list-style: none
+  padding-left: 10%
+  padding-right: 15%
+
+
+.category-list
+  padding-bottom: 4.7px
+
+.category-list .list-item
+  transition: .4s ease-in-out
+  cursor: pointer
+  background: $sky
+  padding: .4rem 1rem
+  border-radius: 3rem
+  margin: .8rem 0
+  display: flex
+  max-width: inherit
+  justify-content: space-between
+  font-family: Abel
+
+.category-list .list-item:hover
+  transform: translateX(1.75em)
+  opacity: 70%
+  cursor: pointer
+
+//----------------Swiper----------------//
+
+.swiper
+  width: 1000px
+  height: 650px
+  padding: 50px 0
+
+.swiper-slide
+  text-align: center
+  font-size: 18px
+  background: #fff
+  background-position: center
+  background-size: cover
+
+  /* Center slide text vertically */
+  display: -webkit-box
+  display: -ms-flexbox
+  display: -webkit-flex
+  display: flex
+  -webkit-box-pack: center
+  -ms-flex-pack: center
+  -webkit-justify-content: center
+  justify-content: center
+  -webkit-box-align: center
+  -ms-flex-align: center
+  -webkit-align-items: center
+  align-items: center
+
+.swiper-slide .slider-img
+  display: block
+  width: 100%
+  height: 100%
+  object-fit: cover
+
+//----------------Post-Items----------------//
+
+.post-card
+  width: 80%
+  margin-top: 20px
+  background: rgba(0, 0, 0, 0.6)
+  font-family: 'Quicksand', sans-serif
+  cursor: pointer
+  overflow: hidden
+  text-align: center
+  margin-left: auto
+  margin-right: auto
+
+.post-list-body
+  max-width: 100%
+  display: block
+  margin-left: auto
+  margin-right: auto
+
+.image
+  object-fit: cover //*this makes the image in src fit to the size specified below*/
+  max-height: 242px
+  display: block
+  transition: .4s ease-in-out
+
+.image__overlay
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background: rgba(0, 0, 0, 0.6)
+  color: #ffffff
+  font-family: 'Quicksand', sans-serif
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  opacity: 0
+  transition: opacity 0.25s
+  backdrop-filter: blur(2px)
+
+.image__overlay > *
+  transform: translateY(20px)
+  transition: transform 0.25s
+
+.image__overlay:hover
+  opacity: 1
+
+.image__overlay:hover > *
+  transform: translateY(0)
+
+.image__title
+  font-size: 2em
+  font-weight: bold
+
+.image__description
+  font-size: 1.25em
+  margin-top: 0.75em
+
+.title-under-image
+  font-size: 1.5em
+  color: #ffffff
+  // font-family: 'Quicksand', sans-serif
+  text-align: center
+
+.container
+  position: relative
+  text-align: center
+  color: white
+  width: 40%
+
+/* Bottom left text */
+.bottom-left
+  position: absolute
+  bottom: 0px
+  left: 50%
+  color: $text-gray
+  background: $sky
+  transform: translate(-50%)
+
+@media (max-width: 750px)
+  .sidebar
+    visibility: hidden
+  #site-content
+    grid-template-columns: 100% 0%
+    padding: 20px
+  .post-info
+    visibility: hidden
+  .post-content
+    width: 100%
+  .post-image img
+    transform: scale(1.085)

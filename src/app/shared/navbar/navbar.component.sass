@@ -1,0 +1,102 @@
+@use '@angular/material' as mat
+@include mat.core()
+@import "src/assets/custom-properties.sass"
+@import "src/assets/icon-animate.sass"
+
+$icon-size: 35px
+
+//----------------Global Classes----------------//
+
+span:focus 
+  outline: none
+  border: 0
+
+span
+  cursor: pointer
+  text-decoration: none
+
+//----------------navbar----------------//
+
+
+
+
+.navbar
+  background: $white
+  min-height: 40px
+  color: $text-gray
+  font-family: Lexend
+  font-size: 1.6rem
+  padding: 0.4rem 1rem
+  overflow: hidden
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  flex-wrap: wrap
+  align-items: center
+  white-space: nowrap
+  max-width: 1400px
+  margin-left: auto
+  margin-right: auto
+
+  
+
+.nav-middle-part
+  font-family: Abel
+  color: $text-light
+
+
+  
+
+.nav-left-part
+  width: 20%
+
+.nav-left-part a
+  text-decoration: none 
+  color: $text-gray
+
+.nav-right-part
+  width: 20%
+  text-align: right
+
+
+.nav-item
+  font-family: Abel
+  font-size: 1.2rem
+  color: $text-light
+  text-decoration: none
+  padding: 0.3rem 1rem
+
+
+
+@media (max-width: 940px)  
+  .navbar 
+    flex-direction: column
+    align-items: center
+  .nav-left-part
+    text-align: center
+    width: 100%
+  .nav-right-part  
+    text-align: center
+    width: 100%
+    color: $text-gray
+    
+
+
+
+//----------------Auth icon----------------//
+
+.icon-profile
+  width: $icon-size
+  height: $icon-size
+  &::before, &::after
+    top: 0
+    left: 0
+    height: 0
+    width: 0
+
+
+img
+  object-fit: cover 
+  width: $icon-size
+  height: $icon-size
+  border-radius: 50%
