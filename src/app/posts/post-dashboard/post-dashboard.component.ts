@@ -64,7 +64,10 @@ export class PostDashboardComponent implements OnInit {
     }
   }
 
-  createPostBody() {
+  async createPostBody() {
+    if(await this.postService.countPostsbyType("title", this.formGroup?.get('title')?.value) === 1)  {
+      return this.snackbarService.openSnackBar("Titel ist bereits vorhanden", "")
+    }
     this.createNewLine();
     this.createID()
     const id = this.formGroup?.get('id')?.value
@@ -88,7 +91,7 @@ export class PostDashboardComponent implements OnInit {
       }
     } else {
       this.replaceBR()
-      this.snackbarService.openSnackBar("Bitte alle Felder ausfüllen und ein Bild hochladen", "");
+      this.snackbarService.openSnackBar("Bitte alle Felder ausfüllen und ein Bild hochladen", "", "red-font");
     }
     
     

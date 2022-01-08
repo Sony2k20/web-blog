@@ -18,9 +18,9 @@ export class PostService {
     return collectionData(queryType, { idField: 'id' }) as Observable<Post[]>;
   }
 
-  async getPostsByType(type: string) {
+  async countPostsbyType(fieldName: string, value: string) {
     const postCollection = collection(this.firestore, 'posts');
-    const queryType = query(postCollection, where("type", "==", type));
+    const queryType = query(postCollection, where(fieldName, "==", value));
     const querySnapshot = await getDocs(queryType);
     const count = querySnapshot.size;
     return count
@@ -32,6 +32,7 @@ export class PostService {
     const postCollection = collection(this.firestore, 'posts');
     const postRef = doc(postCollection, id);
     await setDoc(postRef, post, { merge: true });
+    // await setDoc(postRef, {'published': Timestamp.now()}, { merge: true });
   }
 
 

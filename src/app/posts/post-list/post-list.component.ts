@@ -60,19 +60,19 @@ export class PostListComponent implements OnInit {
 
   ngOnInit(): void {
     (async () => {
-      this.animesCount = (await this.postService.getPostsByType("animes"))
+      this.animesCount = (await this.postService.countPostsbyType("type","animes"))
     })();
 
     (async () => {
-      this.gamesCount = (await this.postService.getPostsByType("games"))
+      this.gamesCount = (await this.postService.countPostsbyType("type","games"))
     })();
 
     (async () => {
-      this.seriesCount = (await this.postService.getPostsByType("series"))
+      this.seriesCount = (await this.postService.countPostsbyType("type","series"))
     })();
 
     (async () => {
-      this.moviesCount = (await this.postService.getPostsByType("movies"))
+      this.moviesCount = (await this.postService.countPostsbyType("type","movies"))
     })();
 
     this.filteredOptions = this.searchForm.valueChanges.pipe(
