@@ -31,10 +31,10 @@ export class PostDashboardComponent implements OnInit {
   };
 
   formGroup = new FormGroup({
-    title: new FormControl('', Validators.required),
-    longTitle: new FormControl('', Validators.required),
+    title: new FormControl('', Validators.minLength(3), ),
+    longTitle: new FormControl('', Validators.minLength(3)),
     id: new FormControl('', Validators.required),
-    content: new FormControl('', Validators.required),
+    content: new FormControl('', Validators.minLength(3)),
     image: new FormControl('', Validators.required),
     type: new FormControl('', Validators.required),
   });
@@ -117,13 +117,12 @@ export class PostDashboardComponent implements OnInit {
     return this.formGroup?.get('content')?.setValue(text.replace(/<br>/g, '\n'));
   }
 
-  testa(){
-    this.snackbarService.openSnackBar("Unzureichende Berechtigung", "", "red-font")
-  }
+
 
   onSelectFile(event: any) {
+    this.createID();
     const file = event.target.files[0];
-    const filePath = event.target.files[0].name;
+    const filePath = "images/"+this.formGroup?.get('id')?.value
     const fileRef = this.storage.ref(filePath);
     const uploadTask = this.storage.upload(filePath, file);
     this.newImage = 'changed'
@@ -145,11 +144,7 @@ export class PostDashboardComponent implements OnInit {
         });
       }
       )
-    ).subscribe()
+    ).subscribe()    
   }
-
-
-
-
-
+  
 }

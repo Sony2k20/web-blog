@@ -21,7 +21,7 @@
 
             <p>
                 <mat-form-field appearance="standard">
-                    <mat-label>Titel</mat-label>
+                    <mat-label>Name des Films/Spiels/Serie/Films</mat-label>
                     <input formControlName="title" matInput>
                 </mat-form-field>
             </p>
@@ -30,7 +30,7 @@
 
             <p>
                 <mat-form-field appearance="standard">
-                    <mat-label>Lange Überschrift</mat-label>
+                    <mat-label>Titel des Blogbeitrages</mat-label>
                     <input formControlName="longTitle" matInput>
                 </mat-form-field>
             </p>
@@ -70,12 +70,12 @@
     [value]="progressbarValue"><br>
 </mat-progress-bar>
 <div mat-dialog-actions align="center">
-    <button mat-button (click)="uploadButton.click()">Bild hochladen</button>
+    <button [disabled]="this.formGroup.controls['title'].value.length < 3 " mat-button (click)="uploadButton.click()">Bild hochladen</button>
     <button *ngIf="this.data.changeType === 'edit'" mat-button (click)="createPostBody()">Speichern</button>
     <button *ngIf="this.data.changeType === 'add'" mat-button (click)="createPostBody()">Beitrag hochladen</button>
     <button *ngIf="this.data.changeType === 'edit'" mat-button mat-dialog-close>Schließen</button>
     <button *ngIf="this.data.changeType === 'add'" mat-button mat-dialog-close>Abbrechen</button>
-    <input #uploadButton hidden="true" type="file" onclick="this.value=null" (change)="onSelectFile($event)"
+    <input  #uploadButton hidden="true" type="file" onclick="this.value=null" (change)="onSelectFile($event)" 
         accept=".png, .jpg" />
 
 </div>
