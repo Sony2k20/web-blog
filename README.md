@@ -1,6 +1,5 @@
 # ToDo
-- check add existing title
-- prevent image overwriting when upload
+- prevent image overwriting when upload/ seperate preview with upload
 - pagination
 - searchbar
 - finish post detail html

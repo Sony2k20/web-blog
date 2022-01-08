@@ -22,6 +22,9 @@ export class PostDashboardComponent implements OnInit {
   imageUrl?: Observable<any>;
   image: any;
   newImage: string | undefined
+  file: any;
+  filePath: string | undefined
+
 
   reviewTypes = {
     'Anime': 'animes',
@@ -31,27 +34,27 @@ export class PostDashboardComponent implements OnInit {
   };
 
   formGroup = new FormGroup({
-    title: new FormControl('', Validators.minLength(3), ),
+    title: new FormControl('', Validators.minLength(3),),
     longTitle: new FormControl('', Validators.minLength(3)),
     id: new FormControl('', Validators.required),
     content: new FormControl('', Validators.minLength(3)),
     image: new FormControl('', Validators.required),
     type: new FormControl('', Validators.required),
   });
-  
+
 
   constructor(
-    private postService: PostService, 
-    private storage: AngularFireStorage, 
+    private postService: PostService,
+    private storage: AngularFireStorage,
     private snackbarService: SnackbarComponent,
     private dialogRef: MatDialogRef<PostDashboardComponent>,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    ){
+  ) {
   }
 
   ngOnInit(): void {
-    if(this.data.changeType === "edit"){
+    if (this.data.changeType === "edit") {
       this.formGroup.controls['title'].disable();
       this.formGroup.controls['title'].setValue(this.data.post.title);
       this.formGroup.controls['longTitle'].setValue(this.data.post.longTitle);
@@ -65,10 +68,10 @@ export class PostDashboardComponent implements OnInit {
   }
 
   async createPostBody() {
-    if(
+    if (
       await this.postService.countPostsbyType("title", this.formGroup?.get('title')?.value) === 1
-    && this.data.changeType !== "edit"
-    )  {
+      && this.data.changeType !== "edit"
+    ) {
       return this.snackbarService.openSnackBar("Titel ist bereits vorhanden", "", "red-font")
     }
     this.createNewLine();
@@ -82,22 +85,25 @@ export class PostDashboardComponent implements OnInit {
       type: this.formGroup?.get('type')?.value,
       published: Timestamp.now(),
     }
-    
+
     if (this.formGroup.valid) {
       this.postService.setPost(post, id)
       this.replaceBR()
-      if(this.data.changeType === "edit") {
+      if (this.data.changeType === "edit") {
         this.snackbarService.openSnackBar("Änderungen erfolgreich", "", "green-font")
       } else {
         const routerLink = "/blog/" + this.formGroup?.get('id')?.value
-        this.dialogRef.close({routerLink: routerLink})
+        this.dialogRef.close({ routerLink: routerLink })
+
+
+
       }
     } else {
       this.replaceBR()
       this.snackbarService.openSnackBar("Bitte alle Felder ausfüllen und ein Bild hochladen", "", "red-font");
     }
-    
-    
+
+
   }
 
   createID() {
@@ -121,11 +127,16 @@ export class PostDashboardComponent implements OnInit {
 
   onSelectFile(event: any) {
     this.createID();
-    const file = event.target.files[0];
-    const filePath = "images/"+this.formGroup?.get('id')?.value
-    const fileRef = this.storage.ref(filePath);
-    const uploadTask = this.storage.upload(filePath, file);
+    this.file = event.target.files[0];
     this.newImage = 'changed'
+    this.imageUpload()
+
+  }
+
+  imageUpload() {
+    this.filePath = "images/" + this.formGroup?.get('id')?.value
+    const fileRef = this.storage.ref(this.filePath);
+    const uploadTask = this.storage.upload(this.filePath, this.file);
 
     uploadTask.percentageChanges().subscribe({
       next: res => this.progressbarValue = res,
@@ -144,7 +155,7 @@ export class PostDashboardComponent implements OnInit {
         });
       }
       )
-    ).subscribe()    
+    ).subscribe()
   }
-  
+
 }

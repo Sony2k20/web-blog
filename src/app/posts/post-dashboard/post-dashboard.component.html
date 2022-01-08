@@ -70,7 +70,10 @@
     [value]="progressbarValue"><br>
 </mat-progress-bar>
 <div mat-dialog-actions align="center">
-    <button [disabled]="this.formGroup.controls['title'].value.length < 3 " mat-button (click)="uploadButton.click()">Bild hochladen</button>
+    <div [matTooltip]="(this.formGroup.controls['title'].value.length < 3 )? 'Bitte geben Sie ein Titel an' : ''" >
+    <button [matTooltip]="(this.data.changeType === 'edit')? 'Beim hochladen wird das Bild automatisch ersetzt' : ''"
+    [disabled]="this.formGroup.controls['title'].value.length < 3" mat-button (click)="uploadButton.click()">Bild hochladen</button>
+</div>
     <button *ngIf="this.data.changeType === 'edit'" mat-button (click)="createPostBody()">Speichern</button>
     <button *ngIf="this.data.changeType === 'add'" mat-button (click)="createPostBody()">Beitrag hochladen</button>
     <button *ngIf="this.data.changeType === 'edit'" mat-button mat-dialog-close>Schließen</button>
