@@ -6,6 +6,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { SnackbarComponent } from 'src/app/shared/snackbar/snackbar.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Timestamp } from '@angular/fire/firestore';
 
 
 @Component({
@@ -73,6 +74,7 @@ export class PostDashboardComponent implements OnInit {
       content: this.formGroup?.get('content')?.value,
       image: this.formGroup?.get('image')?.value,
       type: this.formGroup?.get('type')?.value,
+      published: Timestamp.now(),
     }
     
     if (this.formGroup.valid) {

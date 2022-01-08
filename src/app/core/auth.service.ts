@@ -29,7 +29,7 @@ export class AuthService implements OnInit {
       } else {
         user?.getIdTokenResult().then((idTokenResult) => {
           const authTime = idTokenResult.claims['auth_time'] * 1000;
-          const sessionDurationInMilliseconds = 60 * 60 * 1000; // 60 min
+          const sessionDurationInMilliseconds = 120 * 60 * 1000; // 120 min
           const expirationInMilliseconds = sessionDurationInMilliseconds - (Date.now() - authTime);
           userSessionTimeout = setTimeout(() => this.auth.signOut(), expirationInMilliseconds);
         });

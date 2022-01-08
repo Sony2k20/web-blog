@@ -32,7 +32,6 @@ export class PostService {
     const postCollection = collection(this.firestore, 'posts');
     const postRef = doc(postCollection, id);
     await setDoc(postRef, post, { merge: true });
-    await setDoc(postRef, {'published': Timestamp.now()}, { merge: true });
   }
 
 

@@ -117,7 +117,10 @@ export class AppComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
          this.closeSideNav()
          if (changeType !== 'edit' && result.routerLink)
-         window.location.href = result.routerLink
+         setTimeout(() => {
+          window.location.href = result.routerLink
+         }, 500)
+         
     });
   } 
 
