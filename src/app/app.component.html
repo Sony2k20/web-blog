@@ -12,7 +12,7 @@
         <mat-divider></mat-divider>
         <div [matTooltip]="this.env.adminUsers.indexOf(user!.uid) !== -1? '' : 'Sie haben keine Berechtigung'">
           <mat-list-item (click)="openChangeDialog('add')"
-          [disabled]="this.env.adminUsers.indexOf(user!.uid) === -1 || !valueIfPost">
+          [disabled]="this.env.adminUsers.indexOf(user!.uid) === -1">
             <div class="icon-box">
               <div class="icon icon-enter"><i class="fas fa-file-medical"></i></div>
             </div>

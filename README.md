@@ -3,6 +3,7 @@
 - searchbar
 - finish post detail html
 - adjustment for mobile
+- comment function
 
 
 # WebBlog
