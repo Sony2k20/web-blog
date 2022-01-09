@@ -48,7 +48,6 @@ export class PostService {
   }
 
   deleteNote(id: string) {
-    console.log('test post service')
     const postRef = doc(this.firestore, `posts/${id}`);
     return deleteDoc(postRef);
   }

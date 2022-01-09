@@ -1,5 +1,4 @@
 # ToDo
-- prevent image overwriting when upload/ seperate preview with upload
 - pagination
 - searchbar
 - finish post detail html

@@ -7,6 +7,7 @@ import { SnackbarComponent } from 'src/app/shared/snackbar/snackbar.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Timestamp } from '@angular/fire/firestore';
+import { Post } from '../post';
 
 
 @Component({
@@ -24,6 +25,8 @@ export class PostDashboardComponent implements OnInit {
   newImage: string | undefined
   file: any;
   filePath: string | undefined
+  post: Post | undefined
+  id: any
 
 
   reviewTypes = {
@@ -63,9 +66,10 @@ export class PostDashboardComponent implements OnInit {
       this.formGroup.controls['image'].setValue(this.data.post.image);
       this.formGroup.controls['id'].setValue(this.data.post.id);
       this.replaceBR()
-      this.newImage = "yes"
+      this.newImage = "no"
     }
   }
+
 
   async createPostBody() {
     if (
@@ -74,29 +78,61 @@ export class PostDashboardComponent implements OnInit {
     ) {
       return this.snackbarService.openSnackBar("Titel ist bereits vorhanden", "", "red-font")
     }
+
     this.createNewLine();
     this.createID()
-    const id = this.formGroup?.get('id')?.value
-    const post = {
-      title: this.formGroup?.get('title')?.value,
-      longTitle: this.formGroup?.get('longTitle')?.value,
-      content: this.formGroup?.get('content')?.value,
-      image: this.formGroup?.get('image')?.value,
-      type: this.formGroup?.get('type')?.value,
-      published: Timestamp.now(),
-    }
+    this.id = this.formGroup?.get('id')?.value
 
     if (this.formGroup.valid) {
-      this.postService.setPost(post, id)
-      this.replaceBR()
-      if (this.data.changeType === "edit") {
-        this.snackbarService.openSnackBar("Änderungen erfolgreich", "", "green-font")
+      this.replaceBR();
+
+      if (this.newImage === 'changed') {
+        this.filePath = "images/" + this.formGroup?.get('id')?.value
+        const fileRef = this.storage.ref(this.filePath);
+        const uploadTask = this.storage.upload(this.filePath, this.file);
+
+        uploadTask.percentageChanges().subscribe({
+          next: res => this.progressbarValue = res,
+          error: () => {},
+          complete: () => {},
+        })
+
+        uploadTask.snapshotChanges().pipe(
+          finalize(() => {
+            this.imageUrl = fileRef.getDownloadURL();
+            this.imageUrl?.subscribe(res => {
+              this.formGroup.controls['image'].setValue(res);
+              this.post = {
+                title: this.formGroup?.get('title')?.value,
+                longTitle: this.formGroup?.get('longTitle')?.value,
+                content: this.formGroup?.get('content')?.value,
+                image: this.formGroup?.get('image')?.value,
+                type: this.formGroup?.get('type')?.value,
+                published: Timestamp.now(),
+              }
+              this.postService.setPost(this.post!, this.id)
+              if (this.data.changeType !== "edit") {
+                this.snackbarService.openSnackBar("Beitrag erfolgreich hochgeladen", "", "green-font")
+                const routerLink = "/blog/" + this.formGroup?.get('id')?.value
+                setTimeout(() => {
+                  window.location.href = routerLink
+                }, 1000)
+              }
+            });
+          }
+          )
+        ).subscribe()
       } else {
-        const routerLink = "/blog/" + this.formGroup?.get('id')?.value
-        this.dialogRef.close({ routerLink: routerLink })
-
-
-
+        this.post = {
+          title: this.formGroup?.get('title')?.value,
+          longTitle: this.formGroup?.get('longTitle')?.value,
+          content: this.formGroup?.get('content')?.value,
+          image: this.formGroup?.get('image')?.value,
+          type: this.formGroup?.get('type')?.value,
+          published: Timestamp.now(),
+        }
+        this.postService.setPost(this.post!, this.id)
+        this.snackbarService.openSnackBar("Anpassung erfolgreich", "", "green-font")
       }
     } else {
       this.replaceBR()
@@ -126,14 +162,20 @@ export class PostDashboardComponent implements OnInit {
 
 
   onSelectFile(event: any) {
-    this.createID();
-    this.file = event.target.files[0];
-    this.newImage = 'changed'
-    this.imageUpload()
+    if (event.target.files[0]) {
+      this.file = event.target.files[0];
+      var reader = new FileReader();
+      reader.readAsDataURL(this.file);
 
+      reader.onload = (event) => {
+        this.image = event.target?.result;
+        this.formGroup.controls['image'].setValue('placeholderValue')
+        this.newImage = 'changed'
+      }
+    }
   }
 
-  imageUpload() {
+  async uploadContent() {
     this.filePath = "images/" + this.formGroup?.get('id')?.value
     const fileRef = this.storage.ref(this.filePath);
     const uploadTask = this.storage.upload(this.filePath, this.file);
@@ -142,7 +184,8 @@ export class PostDashboardComponent implements OnInit {
       next: res => this.progressbarValue = res,
       error: () => this.snackbarService.openSnackBar("Unzureichende Berechtigung", "", "red-font"),
       complete: () => {
-        this.snackbarService.openSnackBar("Bild erfolgreich hochgeladen", "", "green-font")
+        this.postService.setPost(this.post!, this.id)
+        this.snackbarService.openSnackBar("Änderungen erfolgreich", "", "green-font")
       },
     })
 

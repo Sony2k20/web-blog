@@ -1,12 +1,13 @@
+
 <div mat-dialog-content>
     <div id="site-content">
         <h2 *ngIf="this.data.changeType === 'edit'; else showAddPost">Blogbeitrag editieren</h2>
         <ng-template #showAddPost>
             <h2>Blogbeitrag erstellen</h2>
         </ng-template>
-        <img *ngIf="this.newImage === 'yes'; else showImageUpload" [lazyLoad]="this.data.post.image" class="imagePreview">
+        <img *ngIf="this.newImage === 'no'; else showImageUpload" [lazyLoad]="this.data.post.image" class="imagePreview">
         <ng-template #showImageUpload>
-            <img *ngIf="image" [lazyLoad]="imageUrl | async" class="imagePreview">
+            <img *ngIf="image" [lazyLoad]="image" class="imagePreview">
         </ng-template>
 
         <!-- <input id="file-upload" type="file" (change)="onSelectFile($event)" />
@@ -76,8 +77,7 @@
 </div>
     <button *ngIf="this.data.changeType === 'edit'" mat-button (click)="createPostBody()">Speichern</button>
     <button *ngIf="this.data.changeType === 'add'" mat-button (click)="createPostBody()">Beitrag hochladen</button>
-    <button *ngIf="this.data.changeType === 'edit'" mat-button mat-dialog-close>Schließen</button>
-    <button *ngIf="this.data.changeType === 'add'" mat-button mat-dialog-close>Abbrechen</button>
+    <button mat-button mat-dialog-close>Schließen</button>
     <input  #uploadButton hidden="true" type="file" onclick="this.value=null" (change)="onSelectFile($event)" 
         accept=".png, .jpg" />
 
