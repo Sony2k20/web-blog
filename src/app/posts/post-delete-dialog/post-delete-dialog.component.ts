@@ -32,7 +32,7 @@ export class PostDeleteDialogComponent implements OnInit {
   
   delete() {
     
-    this.dialogRef.close({deleteValue: this.data.deleteValue = true})
+    this.dialogRef.close({deleteValue: true})
   }
 
 }
