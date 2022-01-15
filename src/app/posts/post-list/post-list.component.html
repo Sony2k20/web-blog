@@ -1,5 +1,3 @@
-
-
 <div id="site-title">
 </div>
 
@@ -14,7 +12,10 @@
 </div>
 
 
-<div data-aos="fade-right" data-aos-duration="2000" id="site-content">
+
+
+<div *ngIf="posts" data-aos="fade-right" data-aos-duration="2000" id="site-content">
+
   <div class="posts">
     <div class="post-content" *ngFor="let post of posts">
       <div
@@ -46,6 +47,9 @@
         </div>
       </div>
     </div>
+       <!-- better pagination https://stackblitz.com/edit/angular-wyx2ue-bw95ug?embed=1&file=app/style-paginator.directive.ts -->
+       <mat-paginator (page)="onPageChange($event)" [length]="this.allPosts.length" [pageSize]="articlesCountDashboard" hidePageSize showFirstLastButtons>
+      </mat-paginator>
   </div>
 
   <div class="sidebar">
@@ -108,7 +112,7 @@
 
     <div class="post-list-body">
       <div>
-        <mat-card routerLink="{{ post.id }}" *ngFor="let post of posts" class="post-card">
+        <mat-card routerLink="{{ post.id }}" *ngFor="let post of allPosts" class="post-card">
           <img routerLink="{{ post.id }}" mat-card-image class="image" src="{{ post.image }}" />
           <div class="image__overlay">
             <div class="image__title">{{ post.longTitle }}</div>

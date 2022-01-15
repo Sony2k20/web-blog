@@ -2,11 +2,9 @@
     font-family: 'Abel';
     src: url(Abel/Abel-Regular.ttf);
 }
-
-
 @font-face {
-    font-family: 'Josefin';
-    src: url(Josefin_Sans/static/JosefinSans-Thin.ttf);
+    font-family: 'Anton';
+    src: url(Anton/Anton-Regular.ttf);
 }
 
 @font-face {
@@ -14,12 +12,17 @@
     src: url(Lexend_Deca/static/LexendDeca-Regular.ttf);
 }
 
+
+
+/* not used */
+
+@font-face {
+    font-family: 'Josefin';
+    src: url(Josefin_Sans/static/JosefinSans-Thin.ttf);
+}
+
 @font-face {
     font-family: 'Livvic';
     src: url(Livvic/Livvic-Thin.ttf);
 }
 
-@font-face {
-    font-family: 'Anton';
-    src: url(Anton/Anton-Regular.ttf);
-}

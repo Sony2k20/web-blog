@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PostService } from '../post.service';
 import { Post } from '../post';
 import { ViewportScroller } from '@angular/common';
@@ -11,6 +11,7 @@ import { map, Observable, startWith } from 'rxjs';
 // import Swiper core and required modules
 import SwiperCore, { Autoplay, Pagination, Navigation, EffectFade, EffectCoverflow } from "swiper";
 import { PostDataService } from 'src/app/post-data.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation, EffectFade, EffectCoverflow]);
@@ -22,15 +23,16 @@ SwiperCore.use([Autoplay, Pagination, Navigation, EffectFade, EffectCoverflow]);
 })
 export class PostListComponent implements OnInit {
   
+  // @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   searchForm = new FormControl();
   subscribeForm = new FormControl();
 
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]> | undefined;
   
-
+  articlesCountDashboard: number = 3;
   posts: Post[] = [];
-  workAroundPost!: Post;
+  allPosts: Post[] = [];
   games: string = 'games';
   movies: string = 'movies';
   series: string = 'series';
@@ -50,15 +52,14 @@ export class PostListComponent implements OnInit {
      private postData: PostDataService,
      ){
     this.postService.getPosts().subscribe(res => {
-      this.posts = res;
-    });
-    this.postService.getPostData('arcane').subscribe(res2 => {
-      this.workAroundPost = res2;
+      this.allPosts = res;
+      this.posts = this.allPosts.slice(0, this.articlesCountDashboard )
     });
     this.postData.obersevevalueIfPost(false)
   }
 
   ngOnInit(): void {
+
     (async () => {
       this.animesCount = (await this.postService.countPostsbyType("type","animes"))
     })();
@@ -80,6 +81,7 @@ export class PostListComponent implements OnInit {
       map(value => this.filterSearch(value)),
     );
   }
+
 
   private filterSearch(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -162,10 +164,11 @@ export class PostListComponent implements OnInit {
     }
   }
 
-test(){
+  onPageChange(event: any) {
+    this.posts = this.allPosts.slice(event.pageIndex*event.pageSize, event.pageIndex*event.pageSize + event.pageSize);
+  }
 
 }
 
-}
 
 
