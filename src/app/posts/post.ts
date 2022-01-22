@@ -6,5 +6,6 @@ export interface Post {
     published?: any;
     image: string;
     type: string;
+    author?: string;
   }
   

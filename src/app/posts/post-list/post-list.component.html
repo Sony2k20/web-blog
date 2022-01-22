@@ -14,10 +14,10 @@
 
 
 
-<div *ngIf="posts" data-aos="fade-right" data-aos-duration="2000" id="site-content">
+<div *ngIf="postsSliced" data-aos="fade-right" data-aos-duration="2000"  id="site-content">
 
   <div class="posts">
-    <div class="post-content" *ngFor="let post of posts">
+    <div class="post-content" *ngFor="let post of postsSliced">
       <div
         *ngIf="post.type === this.games || post.type === this.movies || post.type === this.series || post.type === this.animes">
         <div class="post-image">
@@ -25,11 +25,11 @@
             <img routerLink="{{ post.id }}" src="{{ post.image }}" />
           </div>
           <div class="post-info">
-            <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;Admin</span>
+            <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;{{ post.author }}</span>
             <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;{{ post.published.toDate() | date:
               'mediumDate'
               }}</span>
-            <span>2 comments</span>
+            <span>0 comments</span>
           </div>
         </div>
         <div class="post-textbox">
@@ -48,12 +48,14 @@
       </div>
     </div>
        <!-- better pagination https://stackblitz.com/edit/angular-wyx2ue-bw95ug?embed=1&file=app/style-paginator.directive.ts -->
-       <mat-paginator (page)="onPageChange($event)" [length]="this.allPosts.length" [pageSize]="articlesCountDashboard" hidePageSize showFirstLastButtons>
+       <mat-paginator (page)="onPageChange($event)" [length]="this.postOrderByDate.length" [pageSize]="articlesCountDashboard" hidePageSize showFirstLastButtons>
       </mat-paginator>
   </div>
 
   <div class="sidebar">
 
+
+    
     <div class="side-box">
       <h2>Artikel finden</h2>
       <div class="searchbar">
@@ -62,14 +64,19 @@
           <mat-label>suchen</mat-label>
           <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="searchForm"
             [matAutocomplete]="auto">
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-              {{option}}
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" >
+            <mat-option (onSelectionChange)="onPostSelect(post.id)" *ngFor="let post of filteredOptions | async" [value]="post.title">
+              <div routerLink="{{ post.id }}">
+                <!-- <img routerLink="{{ post.id }}" class="image" src="{{ post.image }}" /> -->
+              {{post.title}}
+              </div>
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
       </div>
     </div>
+
+
 
     <div class="side-box">
       <h2>Kategorie</h2>
@@ -112,7 +119,7 @@
 
     <div class="post-list-body">
       <div>
-        <mat-card routerLink="{{ post.id }}" *ngFor="let post of allPosts" class="post-card">
+        <mat-card routerLink="{{ post.id }}" *ngFor="let post of postOrderByDate" class="post-card">
           <img routerLink="{{ post.id }}" mat-card-image class="image" src="{{ post.image }}" />
           <div class="image__overlay">
             <div class="image__title">{{ post.longTitle }}</div>

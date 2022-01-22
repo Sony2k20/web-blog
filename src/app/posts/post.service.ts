@@ -12,9 +12,15 @@ export class PostService {
 
   constructor(private firestore: Firestore, private storage: AngularFireStorage) { }
 
-  getPosts(): Observable<Post[]> {
+  getPostsOrderByDate(): Observable<Post[]> {
     const postCollection = collection(this.firestore, 'posts');
     const queryType = query(postCollection, orderBy("published", "desc"));
+    return collectionData(queryType, { idField: 'id' }) as Observable<Post[]>;
+  }
+
+  getPostsOrderByTitle(): Observable<Post[]> {
+    const postCollection = collection(this.firestore, 'posts');
+    const queryType = query(postCollection, orderBy("title"));
     return collectionData(queryType, { idField: 'id' }) as Observable<Post[]>;
   }
 
