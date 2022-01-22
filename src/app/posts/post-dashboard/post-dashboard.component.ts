@@ -8,7 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Timestamp } from '@angular/fire/firestore';
 import { Post } from '../post';
-
+import { AuthService } from 'src/app/core/auth.service';
 
 @Component({
   selector: 'app-post-dashboard',
@@ -37,16 +37,17 @@ export class PostDashboardComponent implements OnInit {
   };
 
   formGroup = new FormGroup({
-    title: new FormControl('', Validators.minLength(3),),
-    longTitle: new FormControl('', Validators.minLength(3)),
+    title: new FormControl('', [Validators.required, Validators.minLength(3)],),
+    longTitle: new FormControl('', [Validators.required, Validators.minLength(3)]),
     id: new FormControl('', Validators.required),
-    content: new FormControl('', Validators.minLength(3)),
+    content: new FormControl('', [Validators.required, Validators.minLength(3)]),
     image: new FormControl('', Validators.required),
     type: new FormControl('', Validators.required),
   });
 
 
   constructor(
+    private auth: AuthService,
     private postService: PostService,
     private storage: AngularFireStorage,
     private snackbarService: SnackbarComponent,
@@ -109,8 +110,10 @@ export class PostDashboardComponent implements OnInit {
                 image: this.formGroup?.get('image')?.value,
                 type: this.formGroup?.get('type')?.value,
                 published: Timestamp.now(),
+                author: this.auth.getUsername()
               }
               this.postService.setPost(this.post!, this.id)
+              // Add post function
               if (this.data.changeType !== "edit") {
                 this.snackbarService.openSnackBar("Beitrag erfolgreich hochgeladen", "", "green-font")
                 const routerLink = "/blog/" + this.formGroup?.get('id')?.value
@@ -123,6 +126,7 @@ export class PostDashboardComponent implements OnInit {
           )
         ).subscribe()
       } else {
+        // Edit post function
         this.post = {
           title: this.formGroup?.get('title')?.value,
           longTitle: this.formGroup?.get('longTitle')?.value,
@@ -130,6 +134,7 @@ export class PostDashboardComponent implements OnInit {
           image: this.formGroup?.get('image')?.value,
           type: this.formGroup?.get('type')?.value,
           published: Timestamp.now(),
+          
         }
         this.postService.setPost(this.post!, this.id)
         this.snackbarService.openSnackBar("Anpassung erfolgreich", "", "green-font")
