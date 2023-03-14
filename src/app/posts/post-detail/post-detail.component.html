@@ -10,14 +10,29 @@
   </div>
 </div>
 
-<div id="content">
-  <div>
+<div id="contentBox">
+  <div class="content">
     <h1>{{ post.longTitle }}</h1>
     <p [innerHTML]="post.content"></p>
     <p>{{ post.published.toDate()  | date: 'mediumDate' }}</p>
   </div>
-  <div>Sidebar</div>
-</div>
 
+  <div class="post-list-body sidebar">
+    <h2>Weitere Artikel</h2>
+    <div>
+      <mat-card routerLink="{{ post.id }}" *ngFor="let post of postOrderByTitle | slice:0:4" class="post-card">
+        <img routerLink="{{ post.id }}" mat-card-image class="image" src="{{ post.image }}" />
+        <div class="image__overlay">
+          <div class="image__title">{{ post.longTitle }}</div>
+        </div>
+        <mat-card-content class="title-under-image">
+          {{ post.title }}
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+
+</div>
 </div>
 

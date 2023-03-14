@@ -15,6 +15,7 @@ export class PostDetailComponent implements OnInit {
 
   data: Post | undefined;
   post: Post | undefined;
+  postOrderByTitle: Post[] | undefined;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,6 +27,9 @@ export class PostDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPost();
+    this.postService.getPostsOrderByTitle().subscribe(res => {
+      this.postOrderByTitle = res;
+    });
   }
 
   ngAfterViewChecked() {
@@ -48,7 +52,7 @@ export class PostDetailComponent implements OnInit {
 
 
 goToContent() {
-  document.getElementById("content")!.scrollIntoView({
+  document.getElementById("contentBox")!.scrollIntoView({
     behavior: "smooth",
     block: "start",
     inline: "nearest"

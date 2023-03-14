@@ -109,49 +109,6 @@ $image-width: 100%
   text-align: center
   line-height: 30px
 
-//----------------Sidebar----------------//
-
-.side-box
-  padding-bottom: 50px
-
-.searchbar
-  margin-bottom: 10px
-  width: 100% !important
-  display: grid
-  grid-template-columns: 10% 75%
-
-.mat-form-field-infix
-  border-top: 0px !important
-
-.sidebar h2
-  font-family: Anton
-  font-size: 1.5rem !important
-
-ul
-  list-style: none
-  padding-left: 10%
-  padding-right: 15%
-
-
-.category-list
-  padding-bottom: 4.7px
-
-.category-list .list-item
-  transition: .4s ease-in-out
-  cursor: pointer
-  background: $sky
-  padding: .4rem 1rem
-  border-radius: 3rem
-  margin: .8rem 0
-  display: flex
-  max-width: inherit
-  justify-content: space-between
-  font-family: Abel
-
-.category-list .list-item:hover
-  transform: translateX(1.75em)
-  opacity: 70%
-  cursor: pointer
 
 //----------------Swiper----------------//
 
@@ -187,86 +144,7 @@ ul
   height: 100%
   object-fit: cover
 
-//----------------Post-Items----------------//
 
-.post-card
-  width: 80%
-  margin-top: 20px
-  background: $text-light
-  font-family: Abel
-  cursor: pointer
-  overflow: hidden
-  text-align: center
-  margin-left: auto
-  margin-right: auto
-
-.post-list-body
-  max-width: 100%
-  display: block
-  margin-left: auto
-  margin-right: auto
-
-.image
-  object-fit: cover //*this makes the image in src fit to the size specified below*/
-  max-height: 242px
-  display: block
-  transition: .4s ease-in-out
-
-.image__overlay
-  position: absolute
-  top: 0
-  left: 0
-  width: 100%
-  height: 100%
-  background: rgba(0, 0, 0, 0.6)
-  color: #ffffff
-  font-family: Abel
-  display: flex
-  flex-direction: column
-  align-items: center
-  justify-content: center
-  opacity: 0
-  transition: opacity 0.25s
-  backdrop-filter: blur(2px)
-
-.image__overlay > *
-  transform: translateY(20px)
-  transition: transform 0.25s
-
-.image__overlay:hover
-  opacity: 1
-
-.image__overlay:hover > *
-  transform: translateY(0)
-
-.image__title
-  font-size: 2em
-  font-weight: bold
-
-.image__description
-  font-size: 1.25em
-  margin-top: 0.75em
-
-.title-under-image
-  font-size: 1.5em
-  color: #ffffff
-  // font-family: 'Quicksand', sans-serif
-  text-align: center
-
-.container
-  position: relative
-  text-align: center
-  color: white
-  width: 40%
-
-/* Bottom left text */
-.bottom-left
-  position: absolute
-  bottom: 0px
-  left: 50%
-  color: $text-gray
-  background: $sky
-  transform: translate(-50%)
 
 @media (max-width: 750px)
   .sidebar
