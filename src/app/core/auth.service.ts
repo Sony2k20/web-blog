@@ -1,15 +1,12 @@
 import { Injectable, OnInit } from '@angular/core';
 import {
-  signOut,
-  signInWithPopup,
-  authState,
   GoogleAuthProvider,
   getAuth,
-  setPersistence,
+  signInWithPopup,
+  signOut
 } from '@angular/fire/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
-import { Observable } from 'rxjs';
+import { SnackbarComponent } from '../shared/snackbar/snackbar.component';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +15,10 @@ import { Observable } from 'rxjs';
 export class AuthService implements OnInit {
   authState: any = null
 
-  constructor(public auth: AngularFireAuth) {
+  constructor(
+    public auth: AngularFireAuth,
+    private snackbarService: SnackbarComponent,
+    ) {
     this.auth.authState.subscribe(res => this.authState = res)
 
     this.auth.onAuthStateChanged((user) => {
@@ -49,21 +49,19 @@ export class AuthService implements OnInit {
     signInWithPopup(auth, provider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
-        const user = result.user;
-        console.log(result.user.photoURL)
+        this.snackbarService.openSnackBar("Login erfolgreich", "", "green-font");
       }).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.email;
-        const credential = GoogleAuthProvider.credentialFromError(error);
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          console.log(error)
       });
   }
 
   logout() {
     const auth = getAuth();
     signOut(auth).then(() => {
+      this.snackbarService.openSnackBar("Logout erfolgreich", "", "green-font");
     }).catch((error) => {
+      console.log(error)
     });
   }
 

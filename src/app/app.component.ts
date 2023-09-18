@@ -1,17 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import * as AOS from 'aos';
-import { AuthService } from './core/auth.service';
-import { SideNavService } from './side-nav.service';
 import { environment } from '../environments/environment';
-import { SnackbarComponent } from './shared/snackbar/snackbar.component';
+import { AuthService } from './core/auth.service';
 import { PostDataService } from './post-data.service';
 import { Post } from './posts/post';
-import { MatDialog } from '@angular/material/dialog';
+import { PostDashboardComponent } from './posts/post-dashboard/post-dashboard.component';
 import { PostDeleteDialogComponent } from './posts/post-delete-dialog/post-delete-dialog.component';
 import { PostService } from './posts/post.service';
-import { PostDashboardComponent } from './posts/post-dashboard/post-dashboard.component';
+import { SnackbarComponent } from './shared/snackbar/snackbar.component';
+import { SideNavService } from './side-nav.service';
 
 @Component({
   selector: 'app-root',
@@ -66,17 +66,12 @@ export class AppComponent implements OnInit {
   }
 
   async login() {
-    this.authServ.login()
-
-    setTimeout(() => {
-      this.snackbarService.openSnackBar("Login erfolgreich", "", "green-font");
-    }, 1500);
+    const test = this.authServ.login()
     this.closeSideNav()
   }
 
   logout() {
     this.authServ.logout()
-    this.snackbarService.openSnackBar("Logout erfolgreich", "", "green-font");
     this.closeSideNav()
   }
 
