@@ -1,5 +1,7 @@
 @import "src/assets/custom-properties.sass"
 
+h2
+  line-height: normal
 
 #contentBox
   padding: 50px 50px  
@@ -23,3 +25,20 @@
   font-size: 150% !important
   text-align: justify
   line-height: 35px
+
+@media (max-width: 750px)
+  .sidebar
+    visibility: hidden
+  .content
+    width: 100%
+  #contentBox
+    display: grid
+    grid-template-columns: 100% 0%
+    padding: 30px 30px  
+  #contentBox p
+    font-size: 110% !important
+    line-height: 25px
+  .text-title
+    top: 15vh
+  h2
+    font-size: 140% !important

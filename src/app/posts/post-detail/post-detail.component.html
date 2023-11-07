@@ -12,7 +12,7 @@
 
 <div id="contentBox">
   <div class="content">
-    <h1>{{ post.longTitle }}</h1>
+    <h2>{{ post.longTitle }}</h2>
     <p [innerHTML]="post.content"></p>
     <p>{{ post.published.toDate()  | date: 'mediumDate' }}</p>
   </div>

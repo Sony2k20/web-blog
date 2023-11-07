@@ -1,14 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { finalize, Observable, of, tap } from 'rxjs';
-import { PostService } from '../post.service';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { SnackbarComponent } from 'src/app/shared/snackbar/snackbar.component';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { Timestamp } from '@angular/fire/firestore';
-import { Post } from '../post';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { Observable, finalize } from 'rxjs';
 import { AuthService } from 'src/app/core/auth.service';
+import { SnackbarComponent } from 'src/app/shared/snackbar/snackbar.component';
+import { Post } from '../post';
+import { PostService } from '../post.service';
 
 @Component({
   selector: 'app-post-dashboard',
@@ -85,7 +85,7 @@ export class PostDashboardComponent implements OnInit {
     this.id = this.formGroup?.get('id')?.value
 
     if (this.formGroup.valid) {
-      this.replaceBR();
+      // this.replaceBR();
 
       if (this.newImage === 'changed') {
         this.filePath = "images/" + this.formGroup?.get('id')?.value
