@@ -1,85 +1,115 @@
-
 <div mat-dialog-content>
-    <div id="site-content">
-        <h2 *ngIf="this.data.changeType === 'edit'; else showAddPost">Blogbeitrag editieren</h2>
-        <ng-template #showAddPost>
-            <h2>Blogbeitrag erstellen</h2>
-        </ng-template>
-        <img *ngIf="this.newImage === 'no'; else showImageUpload" [lazyLoad]="this.data.post.image" class="imagePreview">
-        <ng-template #showImageUpload>
-            <img *ngIf="image" [lazyLoad]="image" class="imagePreview">
-        </ng-template>
+  <div id="site-content">
+    <h2 *ngIf="this.data.changeType === 'edit'; else showAddPost">
+      Blogbeitrag editieren
+    </h2>
+    <ng-template #showAddPost>
+      <h2>Blogbeitrag erstellen</h2>
+    </ng-template>
+    <img
+      *ngIf="this.newImage === 'no'; else showImageUpload"
+      [lazyLoad]="this.data.post.image"
+      class="imagePreview"
+    />
+    <ng-template #showImageUpload>
+      <img *ngIf="image" [lazyLoad]="image" class="imagePreview" />
+    </ng-template>
 
-        <!-- <input id="file-upload" type="file" (change)="onSelectFile($event)" />
-    <label for="file-upload">
-        <div class="box-upload">
-            <div class="btn btn-one btn-upload">
-                <span mat-flat-button>Bild hochladen</span>
-            </div>
-        </div>
-    </label> -->
-        <form [formGroup]="formGroup">
+    <form [formGroup]="formGroup">
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Name des Films/Spiels/Serie/Films</mat-label>
+          <input formControlName="title" matInput />
+        </mat-form-field>
+      </p>
 
-            <p>
-                <mat-form-field appearance="standard">
-                    <mat-label>Name des Films/Spiels/Serie/Films</mat-label>
-                    <input formControlName="title" matInput>
-                </mat-form-field>
-            </p>
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Titel des Blogbeitrages</mat-label>
+          <input formControlName="longTitle" matInput />
+        </mat-form-field>
+      </p>
 
+      <p>
+        <mat-form-field appearance="standard">
+          <mat-label>Typ</mat-label>
+          <mat-select
+            style="font-size: 1rem; font-family: Lexend"
+            formControlName="type"
+          >
+            <mat-option
+              style="font-size: 1rem; font-family: Lexend"
+              *ngFor="let reviewType of reviewTypes | keyvalue"
+              [value]="reviewType.value"
+              >{{ reviewType.key }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
 
-
-            <p>
-                <mat-form-field appearance="standard">
-                    <mat-label>Titel des Blogbeitrages</mat-label>
-                    <input formControlName="longTitle" matInput>
-                </mat-form-field>
-            </p>
-
-            <p>
-                <mat-form-field appearance="standard">
-                    <mat-label>Typ</mat-label>
-                    <mat-select style="font-size: 1rem; font-family: Lexend;" formControlName="type">
-                        <mat-option style="font-size: 1rem; font-family: Lexend;"
-                            *ngFor="let reviewType of reviewTypes | keyvalue" [value]=reviewType.value>{{
-                            reviewType.key }}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </p>
-
-
-            <p>
-                <mat-form-field appearance="standard" class="">
-                    <mat-label>Text</mat-label>
-                    <textarea cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="20"
-                        formControlName="content" matInput></textarea>
-                </mat-form-field>
-            </p>
-        </form>
-
-        <!-- <div (click)="createPostBody()" class="box-upload">
-        <div class="btn btn-one btn-upload">
-            <span mat-flat-button>Artikel hochladen</span>
-        </div>
-    </div> -->
-
-    </div>
-
+      <p>
+        <mat-form-field appearance="standard" class="">
+          <mat-label>Text</mat-label>
+          <textarea
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="2"
+            cdkAutosizeMaxRows="20"
+            formControlName="content"
+            matInput
+          ></textarea>
+        </mat-form-field>
+      </p>
+    </form>
+  </div>
 </div>
-<mat-progress-bar *ngIf="progressbarValue !== 0 && progressbarValue !== 100" mode="determinate"
-    [value]="progressbarValue"><br>
+<mat-progress-bar
+  *ngIf="progressbarValue !== 0 && progressbarValue !== 100"
+  mode="determinate"
+  [value]="progressbarValue"
+  ><br />
 </mat-progress-bar>
 <div mat-dialog-actions align="center">
-    <div [matTooltip]="(this.formGroup.controls['title'].value.length < 3 )? 'Bitte geben Sie ein Titel an' : ''" >
-    <button [matTooltip]="(this.data.changeType === 'edit')? 'Beim hochladen wird das Bild automatisch ersetzt' : ''"
-    [disabled]="this.formGroup.controls['title'].value.length < 3" mat-button (click)="uploadButton.click()">Bild hochladen</button>
+  <div
+    [matTooltip]="
+      this.formGroup.controls['title'].value.length < 3
+        ? 'Bitte geben Sie ein Titel an'
+        : ''
+    "
+  >
+    <button
+      [matTooltip]="
+        this.data.changeType === 'edit'
+          ? 'Beim hochladen wird das Bild automatisch ersetzt'
+          : ''
+      "
+      [disabled]="this.formGroup.controls['title'].value.length < 3"
+      mat-button
+      (click)="uploadButton.click()"
+    >
+      Bild hochladen
+    </button>
+  </div>
+  <button
+    *ngIf="this.data.changeType === 'edit'"
+    mat-button
+    (click)="createPostBody()"
+  >
+    Speichern
+  </button>
+  <button
+    *ngIf="this.data.changeType === 'add'"
+    mat-button
+    (click)="createPostBody()"
+  >
+    Beitrag hochladen
+  </button>
+  <button mat-button mat-dialog-close>Schließen</button>
+  <input
+    #uploadButton
+    hidden="true"
+    type="file"
+    onclick="this.value=null"
+    (change)="onSelectFile($event)"
+    accept=".png, .jpg"
+  />
 </div>
-    <button *ngIf="this.data.changeType === 'edit'" mat-button (click)="createPostBody()">Speichern</button>
-    <button *ngIf="this.data.changeType === 'add'" mat-button (click)="createPostBody()">Beitrag hochladen</button>
-    <button mat-button mat-dialog-close>Schließen</button>
-    <input  #uploadButton hidden="true" type="file" onclick="this.value=null" (change)="onSelectFile($event)" 
-        accept=".png, .jpg" />
-
-</div>
-

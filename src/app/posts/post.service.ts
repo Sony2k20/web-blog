@@ -1,37 +1,51 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, doc, docData, deleteDoc, updateDoc, where, query, getDocs, orderBy, setDoc, Timestamp } from '@angular/fire/firestore';
+import {
+  Firestore,
+  collection,
+  collectionData,
+  doc,
+  docData,
+  deleteDoc,
+  updateDoc,
+  where,
+  query,
+  getDocs,
+  orderBy,
+  setDoc,
+  Timestamp,
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Post } from './post';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PostService {
-
-
-  constructor(private firestore: Firestore, private storage: AngularFireStorage) { }
+  constructor(
+    private firestore: Firestore,
+    private storage: AngularFireStorage
+  ) {}
 
   getPostsOrderByDate(): Observable<Post[]> {
     const postCollection = collection(this.firestore, 'posts');
-    const queryType = query(postCollection, orderBy("published", "desc"));
+    const queryType = query(postCollection, orderBy('published', 'desc'));
     return collectionData(queryType, { idField: 'id' }) as Observable<Post[]>;
   }
 
   getPostsOrderByTitle(): Observable<Post[]> {
     const postCollection = collection(this.firestore, 'posts');
-    const queryType = query(postCollection, orderBy("title"));
+    const queryType = query(postCollection, orderBy('title'));
     return collectionData(queryType, { idField: 'id' }) as Observable<Post[]>;
   }
 
   async countPostsbyType(fieldName: string, value: string) {
     const postCollection = collection(this.firestore, 'posts');
-    const queryType = query(postCollection, where(fieldName, "==", value));
+    const queryType = query(postCollection, where(fieldName, '==', value));
     const querySnapshot = await getDocs(queryType);
     const count = querySnapshot.size;
-    return count
+    return count;
   }
-
 
   async setPost(post: Post, id: string) {
     //setdoc() not working with reference
@@ -41,10 +55,9 @@ export class PostService {
     // await setDoc(postRef, {'published': Timestamp.now()}, { merge: true });
   }
 
-
   getPostsCount(): Observable<Post[]> {
     const postCollection = collection(this.firestore, 'posts');
-    const queryType = query(postCollection, orderBy("published"));
+    const queryType = query(postCollection, orderBy('published'));
     return collectionData(queryType, { idField: 'id' }) as Observable<Post[]>;
   }
 
@@ -57,6 +70,4 @@ export class PostService {
     const postRef = doc(this.firestore, `posts/${id}`);
     return deleteDoc(postRef);
   }
-
-
 }

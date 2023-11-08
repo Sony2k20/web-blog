@@ -10,7 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -25,16 +25,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SnackbarComponent } from './snackbar/snackbar.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { AppComponent } from '../app.component';
 
-
-
 @NgModule({
-  declarations: [
-    NavbarComponent,
-    SnackbarComponent,
-  ],
+  declarations: [NavbarComponent, SnackbarComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -61,7 +56,6 @@ import { AppComponent } from '../app.component';
     MatCardModule,
     MatTooltipModule,
     MatDialogModule,
-    
   ],
   exports: [
     CommonModule,
@@ -91,9 +85,6 @@ import { AppComponent } from '../app.component';
     MatTooltipModule,
     MatDialogModule,
   ],
-  providers: [
-    SnackbarComponent,
-    AppComponent,
-    ],
+  providers: [SnackbarComponent, AppComponent],
 })
-export class SharedModule { }
+export class SharedModule {}

@@ -1,7 +1,11 @@
-<div id="site-title">
-</div>
+<div id="site-title"></div>
 
-<div data-aos="fade-up" data-aos-delay="100" data-aos-duration="1000" class="text-title">
+<div
+  data-aos="fade-up"
+  data-aos-delay="100"
+  data-aos-duration="1000"
+  class="text-title"
+>
   <h1>Der Ort für all</h1>
   <h1>dein Lieblingscontent</h1>
   <div class="box-explore">
@@ -11,24 +15,37 @@
   </div>
 </div>
 
-
-
-
-<div *ngIf="postsSliced" data-aos="fade-right" data-aos-duration="2000" id="site-content">
-
+<div
+  *ngIf="postsSliced"
+  data-aos="fade-right"
+  data-aos-duration="2000"
+  id="site-content"
+>
   <div class="posts">
     <div class="post-content" *ngFor="let post of postsSliced">
       <div
-        *ngIf="post.type === this.games || post.type === this.movies || post.type === this.series || post.type === this.animes">
+        *ngIf="
+          post.type === this.games ||
+          post.type === this.movies ||
+          post.type === this.series ||
+          post.type === this.animes
+        "
+      >
         <div class="post-image">
           <div class="blog-image">
             <img routerLink="{{ post.id }}" src="{{ post.image }}" />
           </div>
           <div class="post-info">
-            <span><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;{{ post.author }}</span>
-            <span><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;{{ post.published.toDate() | date:
-              'mediumDate'
-              }}</span>
+            <span
+              ><i class="fas fa-user text-gray"></i>&nbsp;&nbsp;{{
+                post.author
+              }}</span
+            >
+            <span
+              ><i class="fas fa-calendar-alt text-gray"></i>&nbsp;&nbsp;{{
+                post.published.toDate() | date : "mediumDate"
+              }}</span
+            >
             <span>0 comments</span>
           </div>
         </div>
@@ -48,31 +65,46 @@
       </div>
     </div>
     <!-- better pagination https://stackblitz.com/edit/angular-wyx2ue-bw95ug?embed=1&file=app/style-paginator.directive.ts -->
-    <mat-paginator (page)="onPageChange($event)" [length]="this.postOrderByDate.length"
-      [pageSize]="articlesCountDashboard" hidePageSize showFirstLastButtons>
+    <mat-paginator
+      (page)="onPageChange($event)"
+      [length]="this.postOrderByDate.length"
+      [pageSize]="articlesCountDashboard"
+      hidePageSize
+      showFirstLastButtons
+    >
     </mat-paginator>
   </div>
 
   <div class="sidebar">
-
-
-
     <div class="side-box">
       <h2>Artikel finden</h2>
       <div class="searchbar">
         <div></div>
         <mat-form-field>
           <mat-label>suchen</mat-label>
-          <input type="text" aria-label="Number" matInput [formControl]="searchForm" [matAutocomplete]="auto">
+          <input
+            type="text"
+            aria-label="Number"
+            matInput
+            [formControl]="searchForm"
+            [matAutocomplete]="auto"
+          />
           <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option (onSelectionChange)="onPostSelect(post.id)" *ngFor="let post of filteredOptions | async"
-              [value]="post.title">
+            <mat-option
+              (onSelectionChange)="onPostSelect(post.id)"
+              *ngFor="let post of filteredOptions | async"
+              [value]="post.title"
+            >
               <div class="searchContent" routerLink="{{ post.id }}">
                 <div class="searchImageBox">
-                  <img routerLink="{{ post.id }}" class="searchImage" src="{{ post.image }}" />
+                  <img
+                    routerLink="{{ post.id }}"
+                    class="searchImage"
+                    src="{{ post.image }}"
+                  />
                 </div>
                 <div class="searchTextBox"></div>
-                <div>{{post.title}}</div>
+                <div>{{ post.title }}</div>
               </div>
             </mat-option>
           </mat-autocomplete>
@@ -80,24 +112,42 @@
       </div>
     </div>
 
-
-
     <div class="side-box">
       <h2>Kategorie</h2>
       <ul class="category-list">
-        <li matRipple id="animes" (click)="filterAnimes('animes')" class="list-item">
+        <li
+          matRipple
+          id="animes"
+          (click)="filterAnimes('animes')"
+          class="list-item"
+        >
           <a>Anime</a>
           <span>({{ this.animesCount }})</span>
         </li>
-        <li matRipple id="games" (click)="filterGames('games')" class="list-item">
+        <li
+          matRipple
+          id="games"
+          (click)="filterGames('games')"
+          class="list-item"
+        >
           <a>Spiele</a>
           <span>({{ this.gamesCount }})</span>
         </li>
-        <li matRipple id="movies" (click)="filterMovies('movies')" class="list-item">
+        <li
+          matRipple
+          id="movies"
+          (click)="filterMovies('movies')"
+          class="list-item"
+        >
           <a>Filme</a>
           <span>({{ this.moviesCount }})</span>
         </li>
-        <li matRipple id="series" (click)="filterSeries('series')" class="list-item">
+        <li
+          matRipple
+          id="series"
+          (click)="filterSeries('series')"
+          class="list-item"
+        >
           <a>Serien</a>
           <span>({{ this.seriesCount }})</span>
         </li>
@@ -124,8 +174,17 @@
     <div class="post-list-body">
       <h2>Top Artikel</h2>
       <div>
-        <mat-card routerLink="{{ post.id }}" *ngFor="let post of postOrderByTitle | slice:0:4" class="post-card">
-          <img routerLink="{{ post.id }}" mat-card-image class="image" src="{{ post.image }}" />
+        <mat-card
+          routerLink="{{ post.id }}"
+          *ngFor="let post of postOrderByTitle | slice : 0 : 4"
+          class="post-card"
+        >
+          <img
+            routerLink="{{ post.id }}"
+            mat-card-image
+            class="image"
+            src="{{ post.image }}"
+          />
           <div class="image__overlay">
             <div class="image__title">{{ post.longTitle }}</div>
           </div>
@@ -136,75 +195,4 @@
       </div>
     </div>
   </div>
-
-
-  <!--   
-<section class="blog">
-<owl-carousel-o [options]="customOptions" class="owl-theme blog-post">
-  <ng-template carouselSlide>
-    <div class="slide">
-      <img src="https://via.placeholder.com/600/92c952" alt="img 1">
-    </div>
-  </ng-template>
-  <ng-template carouselSlide>
-    <div class="slide">
-      <img src="https://via.placeholder.com/600/771796" alt="img 2">
-    </div>
-  </ng-template>
-  <ng-template carouselSlide>
-    <div class="slide">
-      <img src="https://via.placeholder.com/600/24f355" alt="img 3">
-    </div>
-  </ng-template>
-  <ng-template carouselSlide>
-    <div class="slide">
-      <img src="https://via.placeholder.com/600/d32776" alt="img 4">
-    </div>
-  </ng-template>
-  <ng-template carouselSlide>
-    <div class="slide">
-      <img src="https://via.placeholder.com/600/f66b97" alt="img 5">
-    </div>
-  </ng-template>
-  <ng-template carouselSlide>
-    <div class="slide">
-      <img src="https://via.placeholder.com/600/56a8c2" alt="img 6">
-    </div>
-  </ng-template>
-</owl-carousel-o>
-</section> -->
-
-
-  <!-- <section id="slider">
-  <swiper [loop]="true" [effect]="'fade'" [slidesPerView]="1" [loopedSlides]="0" [slidesPerGroup]="3"
-    [centeredSlides]="true" [autoplay]="{
-      delay: 10000,
-      disableOnInteraction: false
-    }" [pagination]="{
-      clickable: true
-    }" [navigation]="true" class="mySwiper">
-    <ng-template *ngFor="let post of posts.slice(1, 3)" swiperSlide>
-      <img class="slider-img" src="{{ post.image }}" routerLink="{{ post.id }}" />
-    </ng-template>
-    <ng-template swiperSlide>
-      <img class="slider-img"
-        src="https://firebasestorage.googleapis.com/v0/b/weg-blog.appspot.com/o/arcane.jpg?alt=media&token=f7832534-f626-46c1-98f7-4a5177ed37e0"
-        routerLink="arcane" />
-    </ng-template>
-  </swiper>
-</section>
-
-<div class="post-list-body">
-  <div>
-    <mat-card routerLink="{{ post.id }}" *ngFor="let post of posts" class="post-card">
-      <img routerLink="{{ post.id }}" mat-card-image class="image" src="{{ post.image }}" />
-      <div class="image__overlay">
-        <div class="image__title">{{ post.title }}</div>
-        <p class="image__description">{{ post.content }}</p>
-      </div>
-      <mat-card-content class="title-under-image">
-        {{ post.title }}
-      </mat-card-content>
-    </mat-card>
-  </div>
-</div> -->
+</div>

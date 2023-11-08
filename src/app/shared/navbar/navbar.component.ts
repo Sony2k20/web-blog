@@ -9,7 +9,11 @@ import { SideNavService } from 'src/app/side-nav.service';
   styleUrls: ['./navbar.component.sass'],
 })
 export class NavbarComponent implements OnInit {
-  constructor(private router: Router, private sideNavService: SideNavService, public authServ: AuthService) {}
+  constructor(
+    private router: Router,
+    private sideNavService: SideNavService,
+    public authServ: AuthService
+  ) {}
 
   ngOnInit(): void {}
 
@@ -26,8 +30,7 @@ export class NavbarComponent implements OnInit {
     );
   }
 
-  clickMenu() { 
+  clickMenu() {
     this.sideNavService.toggle();
   }
-
 }

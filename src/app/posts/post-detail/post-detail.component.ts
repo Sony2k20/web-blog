@@ -5,14 +5,12 @@ import { PostDataService } from 'src/app/post-data.service';
 import { Post } from '../post';
 import { PostService } from '../post.service';
 
-
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
   styleUrls: ['./post-detail.component.sass'],
 })
 export class PostDetailComponent implements OnInit {
-
   data: Post | undefined;
   post: Post | undefined;
   postOrderByTitle: Post[] | undefined;
@@ -20,43 +18,38 @@ export class PostDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private postService: PostService,
-    private postData: PostDataService,
+    private postData: PostDataService
   ) {
-    this.postData.obersevevalueIfPost(true)
+    this.postData.obersevevalueIfPost(true);
   }
 
   ngOnInit(): void {
     this.getPost();
-    this.postService.getPostsOrderByTitle().subscribe(res => {
+    this.postService.getPostsOrderByTitle().subscribe((res) => {
       this.postOrderByTitle = res;
     });
   }
 
   ngAfterViewChecked() {
     try {
-      document.getElementById('site-title')!.style.backgroundImage = 'url(' + this.post?.image + ')';
-    }
-    catch (error) {
-    }
+      document.getElementById('site-title')!.style.backgroundImage =
+        'url(' + this.post?.image + ')';
+    } catch (error) {}
   }
 
   getPost() {
-    const id = this.route.snapshot.paramMap.get('id')!
-    this.postService.getPostData(id).subscribe(data => {
+    const id = this.route.snapshot.paramMap.get('id')!;
+    this.postService.getPostData(id).subscribe((data) => {
       this.post = data;
-      this.postData.obersevePostData(data)
+      this.postData.obersevePostData(data);
     });
   }
 
-
-
-
-goToContent() {
-  document.getElementById("contentBox")!.scrollIntoView({
-    behavior: "smooth",
-    block: "start",
-    inline: "nearest"
-  });
-}
-
+  goToContent() {
+    document.getElementById('contentBox')!.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
+  }
 }

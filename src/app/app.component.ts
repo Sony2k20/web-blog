@@ -16,20 +16,17 @@ import { SideNavService } from './side-nav.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+  styleUrls: ['./app.component.sass'],
 })
-
 export class AppComponent implements OnInit {
-
   @ViewChild('sidenav') public sidenav: MatSidenav | undefined;
 
   public post: Post | undefined;
   public env = environment;
   deleteValue = false;
   editValue = false;
-  valueIfPost = false; 
+  valueIfPost = false;
   data: any = {};
-
 
   constructor(
     private sideNavService: SideNavService,
@@ -38,9 +35,8 @@ export class AppComponent implements OnInit {
     private snackbarService: SnackbarComponent,
     private postData: PostDataService,
     public dialog: MatDialog,
-    private postService: PostService,
-  ) {
-  }
+    private postService: PostService
+  ) {}
 
   ngOnInit() {
     AOS.init();
@@ -55,66 +51,63 @@ export class AppComponent implements OnInit {
     });
   }
 
-
   goToCreatePost() {
     this.router.navigateByUrl('/dashboard');
-    this.closeSideNav()
+    this.closeSideNav();
   }
 
   closeSideNav() {
-    this.sidenav?.toggle()
+    this.sidenav?.toggle();
   }
 
   async login() {
-    const test = this.authServ.login()
-    this.closeSideNav()
+    const test = this.authServ.login();
+    this.closeSideNav();
   }
 
   logout() {
-    this.authServ.logout()
-    this.closeSideNav()
+    this.authServ.logout();
+    this.closeSideNav();
   }
 
   async delete() {
-  
-    if (this.post?.id)
-    this.postService.deleteNote(this.post?.id)
+    if (this.post?.id) this.postService.deleteNote(this.post?.id);
   }
 
   openDeleteDialog() {
-    const dialogRef = this.dialog.open(
-      PostDeleteDialogComponent, {data: {deleteValue: this.deleteValue}}
-    );
-    dialogRef.afterClosed().subscribe(result => {
-      if (result.deleteValue && this.post?.id){
-         this.postService.deleteNote(this.post?.id);
-         this.closeSideNav()
-         this.snackbarService.openSnackBar("Post wurde gelöscht", "", "green-font");
-    }});
+    const dialogRef = this.dialog.open(PostDeleteDialogComponent, {
+      data: { deleteValue: this.deleteValue },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.deleteValue && this.post?.id) {
+        this.postService.deleteNote(this.post?.id);
+        this.closeSideNav();
+        this.snackbarService.openSnackBar(
+          'Post wurde gelöscht',
+          '',
+          'green-font'
+        );
+      }
+    });
   }
 
   openChangeDialog(changeType: string) {
-    if(changeType === 'edit'){
-    this.data = {
-      changeType: "edit",
-      post: this.post,
-    } 
-    } else this.data = {
-      changeType: "add"
-    }
+    if (changeType === 'edit') {
+      this.data = {
+        changeType: 'edit',
+        post: this.post,
+      };
+    } else
+      this.data = {
+        changeType: 'add',
+      };
 
-    const dialogRef = this.dialog.open(
-      PostDashboardComponent, {
-        width: '1000px',
-        data: this.data
-      }
-    );
-    dialogRef.afterClosed().subscribe(result => {
-         this.closeSideNav()
-
-         
+    const dialogRef = this.dialog.open(PostDashboardComponent, {
+      width: '1000px',
+      data: this.data,
     });
-  } 
-
-
+    dialogRef.afterClosed().subscribe((result) => {
+      this.closeSideNav();
+    });
+  }
 }

@@ -3,13 +3,19 @@ import { PostService } from '../post.service';
 import { Post } from '../post';
 import { ViewportScroller } from '@angular/common';
 import { Router } from '@angular/router';
-import { SwiperComponent } from "swiper/angular";
+import { SwiperComponent } from 'swiper/angular';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { FormControl } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
 
 // import Swiper core and required modules
-import SwiperCore, { Autoplay, Pagination, Navigation, EffectFade, EffectCoverflow } from "swiper";
+import SwiperCore, {
+  Autoplay,
+  Pagination,
+  Navigation,
+  EffectFade,
+  EffectCoverflow,
+} from 'swiper';
 import { PostDataService } from 'src/app/post-data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { transformAll } from '@angular/compiler/src/render3/r3_ast';
@@ -23,7 +29,6 @@ SwiperCore.use([Autoplay, Pagination, Navigation, EffectFade, EffectCoverflow]);
   styleUrls: ['./post-list.component.sass'],
 })
 export class PostListComponent implements OnInit {
-
   // @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   searchForm = new FormControl();
   subscribeForm = new FormControl();
@@ -42,55 +47,70 @@ export class PostListComponent implements OnInit {
   seriesCount: any;
   animesCount: any;
 
-  activeColor = "linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)rgb(255, 145, 0)";
-  notActiveColor = "linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%)";
+  activeColor =
+    'linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)rgb(255, 145, 0)';
+  notActiveColor = 'linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%)';
 
   constructor(
     private postService: PostService,
     private scroller: ViewportScroller,
     private router: Router,
-    private postData: PostDataService,
+    private postData: PostDataService
   ) {
-    this.postService.getPostsOrderByDate().subscribe(res => {
+    this.postService.getPostsOrderByDate().subscribe((res) => {
       this.postOrderByDate = res;
-      this.postsSliced = this.postOrderByDate.slice(0, this.articlesCountDashboard)
+      this.postsSliced = this.postOrderByDate.slice(
+        0,
+        this.articlesCountDashboard
+      );
     });
-    this.postService.getPostsOrderByTitle().subscribe(res => {
+    this.postService.getPostsOrderByTitle().subscribe((res) => {
       this.postOrderByTitle = res;
     });
 
-    this.postData.obersevevalueIfPost(false)
+    this.postData.obersevevalueIfPost(false);
   }
 
   ngOnInit(): void {
     (async () => {
-      this.animesCount = (await this.postService.countPostsbyType("type", "animes"))
+      this.animesCount = await this.postService.countPostsbyType(
+        'type',
+        'animes'
+      );
     })();
 
     (async () => {
-      this.gamesCount = (await this.postService.countPostsbyType("type", "games"))
+      this.gamesCount = await this.postService.countPostsbyType(
+        'type',
+        'games'
+      );
     })();
 
     (async () => {
-      this.seriesCount = (await this.postService.countPostsbyType("type", "series"))
+      this.seriesCount = await this.postService.countPostsbyType(
+        'type',
+        'series'
+      );
     })();
 
     (async () => {
-      this.moviesCount = (await this.postService.countPostsbyType("type", "movies"))
+      this.moviesCount = await this.postService.countPostsbyType(
+        'type',
+        'movies'
+      );
     })();
 
     this.filteredOptions = this.searchForm.valueChanges.pipe(
-      map(value => value.length >= 1 ? this.filterSearch(value) : []),
+      map((value) => (value.length >= 1 ? this.filterSearch(value) : []))
     );
   }
 
-
   private filterSearch(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.postOrderByTitle.filter(option => option.title.toLowerCase().includes(filterValue));
+    return this.postOrderByTitle.filter((option) =>
+      option.title.toLowerCase().includes(filterValue)
+    );
   }
-
-
 
   customOptions: OwlOptions = {
     loop: true,
@@ -102,33 +122,33 @@ export class PostListComponent implements OnInit {
     navText: ['&#8249', '&#8250;'],
     responsive: {
       0: {
-        items: 1
+        items: 1,
       },
       400: {
-        items: 2
+        items: 2,
       },
       760: {
-        items: 3
+        items: 3,
       },
       1000: {
-        items: 4
-      }
+        items: 4,
+      },
     },
-    nav: true
-  }
+    nav: true,
+  };
 
   goToSlider() {
-    document.getElementById("site-content")!.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-      inline: "nearest"
+    document.getElementById('site-content')!.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
     });
   }
 
   filterGames(id: string) {
     if (this.games === id) {
       document.getElementById(id)!.style.background = this.notActiveColor;
-      this.games = "";
+      this.games = '';
     } else {
       document.getElementById(id)!.style.background = this.activeColor;
       this.games = id;
@@ -138,7 +158,7 @@ export class PostListComponent implements OnInit {
   filterSeries(id: string) {
     if (this.series === id) {
       document.getElementById(id)!.style.background = this.notActiveColor;
-      this.series = "";
+      this.series = '';
     } else {
       document.getElementById(id)!.style.background = this.activeColor;
       this.series = id;
@@ -148,7 +168,7 @@ export class PostListComponent implements OnInit {
   filterMovies(id: string) {
     if (this.movies === id) {
       document.getElementById(id)!.style.background = this.notActiveColor;
-      this.movies = "";
+      this.movies = '';
     } else {
       document.getElementById(id)!.style.background = this.activeColor;
       this.movies = id;
@@ -158,7 +178,7 @@ export class PostListComponent implements OnInit {
   filterAnimes(id: string) {
     if (this.animes === id) {
       document.getElementById(id)!.style.background = this.notActiveColor;
-      this.animes = "";
+      this.animes = '';
     } else {
       document.getElementById(id)!.style.background = this.activeColor;
       this.animes = id;
@@ -166,7 +186,10 @@ export class PostListComponent implements OnInit {
   }
 
   onPageChange(event: any) {
-    this.postsSliced = this.postOrderByDate.slice(event.pageIndex * event.pageSize, event.pageIndex * event.pageSize + event.pageSize);
+    this.postsSliced = this.postOrderByDate.slice(
+      event.pageIndex * event.pageSize,
+      event.pageIndex * event.pageSize + event.pageSize
+    );
     this.router.navigate(['/blog']);
     setTimeout(
       () =>
@@ -179,12 +202,7 @@ export class PostListComponent implements OnInit {
     );
   }
 
-
   onPostSelect(id: string) {
-    this.router.navigate(['blog', id])
+    this.router.navigate(['blog', id]);
   }
-
 }
-
-
-

@@ -3,8 +3,6 @@
 @use 'src/assets/google-fonts/google-fonts.css'
 @import "src/assets/custom-properties.sass"
 @include mat.core()
- 
-
 
 //----------------Global----------------//
 
@@ -12,7 +10,6 @@ body
   border: none !important
   margin: 0px 0px !important
   padding: 0 !important
-  
 
 h1
   font-family: Lexend
@@ -20,14 +17,14 @@ h1
   color: $white
 
 h2
-  font-family: Anton 
+  font-family: Anton
   font-size: 2.0rem !important
   color: $text-gray
 
 h3
   font-family: Anton
   color: $text-gray
-  font-size: 1.5rem !important  
+  font-size: 1.5rem !important
   font-weight: bolder
 
 p
@@ -43,8 +40,8 @@ li
 
 //----------------Banner----------------//
 
-#site-title 
-  background: url('file:/src/assets/images/arcane.jpg') no-repeat center center 
+#site-title
+  background: url('file:/src/assets/images/arcane.jpg') no-repeat center center
   background-size: cover
   height: $banner-height
   display: flex
@@ -54,8 +51,6 @@ li
   padding-top: 10rem
   filter: brightness(50%)
   position: relative
-
-
 
 .text-title
   text-align: center
@@ -81,31 +76,31 @@ li
 
 //----------------Button----------------//
 
-.btn-nav 
+.btn-nav
   line-height: 50px
   height: 50px
   text-align: center
   width: 120px
   cursor: pointer
 
-.btn 
+.btn
   line-height: 50px
   height: 50px
   text-align: center
-  cursor: pointer  
+  cursor: pointer
 
-.btn-one 
-  color:$text-gray
+.btn-one
+  color: $text-gray
   transition: all 0.3s
   position: relative
   font-family: Abel
   font-size: 1.2rem
   text-align: center
 
-.btn-one span 
+.btn-one span
   transition: all 0.3s
 
-.btn-one::before 
+.btn-one::before
   content: ''
   position: absolute
   bottom: 0
@@ -119,22 +114,22 @@ li
   border-bottom-width: 1px
   border-top-style: solid
   border-bottom-style: solid
-  border-top-color: #5c5c5c5e  // rgba(255,255,255,0.5)
-  border-bottom-color: #5c5c5c5e  // rgba(255,255,255,0.5)
+  border-top-color: #5c5c5c5e // rgba(255,255,255,0.5)
+  border-bottom-color: #5c5c5c5e // rgba(255,255,255,0.5)
   transform: scale(0.1, 1)
 
-.btn-explore::before 
+.btn-explore::before
   border-top-color: rgba(255,255,255,0.5)
   border-bottom-color: rgba(255,255,255,0.5)
 
-.btn-one:hover span 
+.btn-one:hover span
   letter-spacing: 2px
 
-.btn-one:hover::before 
-  opacity: 1 
-  transform: scale(1, 1) 
+.btn-one:hover::before
+  opacity: 1
+  transform: scale(1, 1)
 
-.btn-one::after 
+.btn-one::after
   content: ''
   position: absolute
   bottom: 0
@@ -145,26 +140,25 @@ li
   transition: all 0.3s
   background-color: #ffffff00 //rgba(255,255,255,0.1)
 
-.btn-one:hover::after 
-  opacity: 0 
+.btn-one:hover::after
+  opacity: 0
   transform: scale(0.1, 1)
-
 
 //----------------Snackbar----------------//
 
-.mat-snack-bar-container 
-    text-align: center
+.mat-snack-bar-container
+  text-align: center
 
-.mat-simple-snackbar 
-    display: inline-block !important
+.mat-simple-snackbar
+  display: inline-block !important
 
 .red-font
-    color: #da326a
-    font-weight: 500
+  color: #da326a
+  font-weight: 500
 
 .green-font
-    color: #009788
-    font-weight: 500
+  color: #009788
+  font-weight: 500
 
 //----------------Post-Items----------------//
 
@@ -272,7 +266,6 @@ ul
   padding-left: 10%
   padding-right: 15%
 
-
 .category-list
   padding-bottom: 4.7px
 
@@ -293,10 +286,8 @@ ul
   opacity: 70%
   cursor: pointer
 
-
-
 @media (max-width: 750px)
-  #site-title 
+  #site-title
     max-height: 70px
   .text-title
     top: 120px
