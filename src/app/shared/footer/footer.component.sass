@@ -19,7 +19,7 @@
 .footer_link:hover
   opacity: 0.7
 
-.move-up
+.move-up-fullscreen
   text-align: center
   vertical-align: middle
 
@@ -42,3 +42,15 @@
 
 .social-items a
   margin: 15px 12px
+
+
+@media (max-width: 750px)
+  .footer
+    padding: 40px 0
+    font-size: 1rem
+  .move-up-fullscreen
+    display: none
+
+@media (min-width: 750px)
+  .move-up
+    display: none

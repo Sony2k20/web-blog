@@ -1,5 +1,5 @@
-<mat-drawer-container class="example-container" hasBackdrop="true">
-  <mat-drawer #sidenav position="end" mode="push">
+<mat-sidenav-container autosize class="example-container" hasBackdrop="true">
+  <mat-sidenav #sidenav position="end" mode="over">
     <div *ngIf="authServ.auth.user | async as user; else showLogin">
       <mat-list>
         <mat-list-item> Hallo {{ user.displayName }}</mat-list-item>
@@ -105,10 +105,10 @@
         </mat-list-item>
       </mat-nav-list>
     </ng-template>
-  </mat-drawer>
-  <mat-drawer-content>
+  </mat-sidenav>
+  <mat-sidenav-content>
     <app-navbar></app-navbar>
     <router-outlet></router-outlet>
     <app-footer></app-footer>
-  </mat-drawer-content>
-</mat-drawer-container>
+  </mat-sidenav-content>
+</mat-sidenav-container>
