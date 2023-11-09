@@ -1,9 +1,8 @@
 # ToDo
-- pagination
-- searchbar
-- finish post detail html
-- adjustment for mobile
 - comment function
+- rework login functionality
+- choose new home banner
+- create about me page
 
 
 # WebBlog

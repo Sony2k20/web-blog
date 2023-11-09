@@ -1,25 +1,25 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-import { SharedModule } from './shared/shared.module';
-import { CoreModule } from './core/core.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
-import { environment } from '../environments/environment';
-import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
+import { environment } from '../environments/environment';
+import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
+import { PostDataService } from './post-data.service';
 import { PostsModule } from './posts/posts.module';
 import { FooterComponent } from './shared/footer/footer.component';
-import { AngularFireStorageModule, BUCKET } from '@angular/fire/compat/storage';
-import { AngularFireModule } from '@angular/fire/compat';
+import { SharedModule } from './shared/shared.module';
 import { SideNavService } from './side-nav.service';
-import { PostDataService } from './post-data.service';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/blog', pathMatch: 'full' },
+  { path: '', redirectTo: 'blog', pathMatch: 'full' },
   {
-    path: '',
+    path: 'blog',
     loadChildren: () =>
       import('./posts/posts.module').then((m) => m.PostsModule),
   },

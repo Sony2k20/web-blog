@@ -20,12 +20,12 @@
       <h2>Weitere Artikel</h2>
       <div>
         <mat-card
-          routerLink="{{ post.id }}"
+          (click)="routeTo(post.id)"
           *ngFor="let post of postOrderByTitle | slice : 0 : 4"
           class="post-card"
         >
           <img
-            routerLink="{{ post.id }}"
+            
             mat-card-image
             class="image"
             src="{{ post.image }}"

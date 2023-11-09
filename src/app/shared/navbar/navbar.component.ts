@@ -20,20 +20,19 @@ export class NavbarComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-     if(window.innerWidth < 750) {
+     if(window.innerWidth < 940) {
       this.mobile = true;
      } 
-     if(window.innerWidth > 750) {
+     if(window.innerWidth > 940) {
       this.mobile = false;
      }
-     console.log(this.mobile)
   }
 
   ngOnInit(): void {
-    if(window.innerWidth < 750) {
+    if(window.innerWidth < 940) {
       this.mobile = true;
      } 
-     if(window.innerWidth > 750) {
+     if(window.innerWidth > 940) {
       this.mobile = false;
      }
   }

@@ -1,6 +1,13 @@
 <div id="top" class="navbar fixed">
+
+  <div class="nav-left-part-mobile">
+      <div (click)="clickMenu()" class="icon">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+  </div>
+
   <div class="nav-left-part">
-    <a routerLink="/blog">nerd-heaven.net</a>
+    <a routerLink="/blog">Nerd-heaven.net</a>
   </div>
 
   <div class="nav-middle-part">
@@ -30,7 +37,7 @@
       </div>
     </div>
     <ng-template #showIcon>
-      <div (click)="clickMenu()" class="icon icon-enter">
+      <div (click)="clickMenu()" class="icon" [ngClass]="mobile ? '' : 'icon-enter'">
         <i class="fa fa-user"></i>
       </div>
     </ng-template>

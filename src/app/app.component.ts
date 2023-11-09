@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
 
   public post: Post | undefined;
   public env = environment;
+  mobile: boolean = false;
   deleteValue = false;
   editValue = false;
   valueIfPost = false;
@@ -38,8 +39,26 @@ export class AppComponent implements OnInit {
     private postService: PostService
   ) {}
 
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+     if(window.innerWidth < 940) {
+      this.mobile = true;
+     } 
+     if(window.innerWidth > 940) {
+      this.mobile = false;
+     }
+  }
+
   ngOnInit() {
     AOS.init();
+
+    if(window.innerWidth < 940) {
+      this.mobile = true;
+     } 
+     if(window.innerWidth > 940) {
+      this.mobile = false;
+     }
+
     this.sideNavService.sideNavToggleSubject.subscribe(() => {
       this.closeSideNav();
     });
@@ -109,5 +128,21 @@ export class AppComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       this.closeSideNav();
     });
+  }
+
+  changeRoute(route: string, slider?: true){
+    this.router.navigate([route]);
+    if(slider){
+      setTimeout(
+        () =>
+          document.getElementById('site-content')!.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+            inline: 'nearest',
+          }),
+        50
+      );
+    }
+    this.closeSideNav();
   }
 }

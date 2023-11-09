@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import * as Aos from 'aos';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostDataService } from 'src/app/post-data.service';
 import { Post } from '../post';
 import { PostService } from '../post.service';
@@ -17,6 +16,7 @@ export class PostDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private postService: PostService,
     private postData: PostDataService
   ) {
@@ -51,5 +51,13 @@ export class PostDetailComponent implements OnInit {
       block: 'start',
       inline: 'nearest',
     });
+  }
+
+  routeTo(route: any){
+    this.router.navigate(["/blog/" + route])
+    // workaround route not working
+    setTimeout(()=>{                           
+      window.location.reload()
+  }, 1);
   }
 }
